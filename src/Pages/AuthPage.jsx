@@ -20,7 +20,7 @@ const AuthPage = () => {
       return;
     }
 
-    const url = isLogin ? `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/login` : `${import.meta.env.VITE_BACKEND_URL}api/v1/user/register`;
+    const url = isLogin ? `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/login` : `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/register`;
     const loadingMsg = isLogin ? "Logging in user ....." : "Signing up the user .....";
     const successMsg = isLogin ? "Logged in Successfully" : "Sign Up Successfully";
 
