@@ -15,7 +15,7 @@ const PopupMenu = () => {
     async function logoutUser() {
         try {
             const res = await toast.promise(
-                axios.get(`http://localhost:8000/api/v1/user/logout`,  {withCredentials:true}),
+                axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/logout`,  {withCredentials:true}),
                 {
                     loading: " logging out .....",
                     success: "Logged out Successfully",
