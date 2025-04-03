@@ -18,7 +18,7 @@ const ForgotPasswordPage = () => {
     try {
       setLoading(true);
       await toast.promise(
-        axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/forgotPassword`, { email }),
+        axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/forgot-password`, { email }),
         {
           loading: "Sending reset link...",
           success: "Reset link sent! Check your email.",

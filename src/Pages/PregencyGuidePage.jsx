@@ -22,10 +22,11 @@ const PregnancyGuidePage = () => {
   const [tasks, setTasks] = useState([]);
   const [doctorVisits, setDoctorVisits] = useState("");
 
-  // Load stored data
+
   useEffect(() => {
     const storedWeek = localStorage.getItem("pregnancyWeek");
-    const storedSymptoms = JSON.parse(localStorage.getItem("loggedSymptoms")) || [];
+    const storedSymptoms =
+      JSON.parse(localStorage.getItem("loggedSymptoms")) || [];
     const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
     if (storedWeek) setCurrentWeek(parseInt(storedWeek));
@@ -33,17 +34,20 @@ const PregnancyGuidePage = () => {
     setTasks(storedTasks);
   }, []);
 
-  // Save data to local storage
+
   useEffect(() => {
     localStorage.setItem("pregnancyWeek", currentWeek);
     localStorage.setItem("loggedSymptoms", JSON.stringify(loggedSymptoms));
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [currentWeek, loggedSymptoms, tasks]);
 
-  // Log Symptoms
+
   const addSymptoms = () => {
     if (symptoms.trim() !== "") {
-      setLoggedSymptoms([...loggedSymptoms, { week: currentWeek, text: symptoms }]);
+      setLoggedSymptoms([
+        ...loggedSymptoms,
+        { week: currentWeek, text: symptoms },
+      ]);
       setSymptoms("");
     }
   };
@@ -56,7 +60,6 @@ const PregnancyGuidePage = () => {
     }
   };
 
-  // Toggle Task Completion
   const toggleTaskCompletion = (index) => {
     const updatedTasks = tasks.map((task, i) =>
       i === index ? { ...task, completed: !task.completed } : task
@@ -64,7 +67,6 @@ const PregnancyGuidePage = () => {
     setTasks(updatedTasks);
   };
 
-  // Delete Task
   const deleteTask = (index) => {
     const updatedTasks = tasks.filter((_, i) => i !== index);
     setTasks(updatedTasks);
@@ -75,7 +77,6 @@ const PregnancyGuidePage = () => {
       <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
         <h2 className="text-2xl font-bold text-center mb-4">Pregnancy Guide</h2>
 
-        {/* Week Selector */}
         <div className="flex justify-between items-center mb-4">
           <button
             className="px-4 py-1 bg-blue-500 text-white rounded-lg disabled:opacity-50"
@@ -94,12 +95,10 @@ const PregnancyGuidePage = () => {
           </button>
         </div>
 
-        {/* Weekly Tip */}
         <div className="p-3 bg-gray-200 rounded-lg text-gray-700 mb-4">
           <strong>Tip of the Week:</strong> {weeklyTips[currentWeek - 1]}
         </div>
 
-        {/* Symptom Logger */}
         <div className="mb-4">
           <h3 className="text-lg font-semibold">Log Symptoms</h3>
           <input
@@ -117,7 +116,6 @@ const PregnancyGuidePage = () => {
           </button>
         </div>
 
-        {/* Symptoms List */}
         {loggedSymptoms.length > 0 && (
           <div className="mb-4">
             <h3 className="text-lg font-semibold">Logged Symptoms</h3>
@@ -125,13 +123,14 @@ const PregnancyGuidePage = () => {
               {loggedSymptoms
                 .filter((entry) => entry.week === currentWeek)
                 .map((entry, index) => (
-                  <li key={index} className="text-sm">{entry.text}</li>
+                  <li key={index} className="text-sm">
+                    {entry.text}
+                  </li>
                 ))}
             </ul>
           </div>
         )}
 
-        {/* Reminders / To-Do List */}
         <div className="mb-4">
           <h3 className="text-lg font-semibold">Reminders & Tasks</h3>
           <div className="flex gap-2">
@@ -142,24 +141,34 @@ const PregnancyGuidePage = () => {
               value={reminders}
               onChange={(e) => setReminders(e.target.value)}
             />
-            <button onClick={addTask} className="bg-green-500 text-white p-2 rounded-lg">
+            <button
+              onClick={addTask}
+              className="bg-green-500 text-white p-2 rounded-lg"
+            >
               <PlusCircle size={20} />
             </button>
           </div>
         </div>
 
-        {/* Tasks List */}
         {tasks.length > 0 && (
           <ul className="space-y-2">
             {tasks.map((task, index) => (
-              <li key={index} className="flex items-center justify-between bg-gray-200 p-2 rounded-lg">
+              <li
+                key={index}
+                className="flex items-center justify-between bg-gray-200 p-2 rounded-lg"
+              >
                 <span
-                  className={`text-gray-700 ${task.completed ? "line-through text-green-500" : ""}`}
+                  className={`text-gray-700 ${
+                    task.completed ? "line-through text-green-500" : ""
+                  }`}
                   onClick={() => toggleTaskCompletion(index)}
                 >
                   {task.text}
                 </span>
-                <button onClick={() => deleteTask(index)} className="text-red-600">
+                <button
+                  onClick={() => deleteTask(index)}
+                  className="text-red-600"
+                >
                   <Trash2 size={18} />
                 </button>
               </li>
@@ -167,7 +176,6 @@ const PregnancyGuidePage = () => {
           </ul>
         )}
 
-        {/* Doctor Visits Log */}
         <div className="mt-4">
           <h3 className="text-lg font-semibold">Doctor Visits</h3>
           <input

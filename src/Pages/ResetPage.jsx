@@ -19,7 +19,10 @@ const ResetPage = () => {
     try {
       setLoading(true);
       await toast.promise(
-        axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/reset-password`, { email }),
+        axios.post(
+          `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/reset-password`,
+          { email }
+        ),
         {
           loading: "Sending reset link...",
           success: "Reset link sent! Check your email.",

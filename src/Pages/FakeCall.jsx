@@ -9,14 +9,12 @@ const FakeCall = () => {
   const ringtoneRef = useRef(new Audio(ringtone));
   const voiceRef = useRef(new Audio(fakeCall));
 
-
   const startFakeCall = () => {
     setTimeout(() => {
       setIncomingCall(true);
       ringtoneRef.current.play();
-    }, 3000);
+    }, 500);
   };
-
 
   const answerCall = () => {
     setAnswered(true);
@@ -24,15 +22,23 @@ const FakeCall = () => {
     voiceRef.current.play();
   };
 
-
   const declineCall = () => {
     setIncomingCall(false);
     setAnswered(false);
     ringtoneRef.current.pause();
     voiceRef.current.pause();
   };
- const { isOpen, setIsOpen, setDarkMode, darkMode, handleClick, setIsLogin, isUserLogIn, setIsUserLogin, user } =
-    useContext(AuthContext);
+  const {
+    isOpen,
+    setIsOpen,
+    setDarkMode,
+    darkMode,
+    handleClick,
+    setIsLogin,
+    isUserLogIn,
+    setIsUserLogin,
+    user,
+  } = useContext(AuthContext);
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
       <button
@@ -44,14 +50,13 @@ const FakeCall = () => {
 
       {incomingCall && !answered && (
         <div className="fixed top-20 inset-0 flex flex-col items-center justify-center bg-black bg-opacity-80">
-                                  <div className="bg-white h-2/3 flex items-center flex-col justify-center gap-16 p-6 rounded-lg shadow-lg text-center w-72">
-                                          <div>
-
-                                                  <img src={user.img} className="w-20 rounded-full" alt="" />
-                                          </div>
-                                          <div>
-                                                  <h2 className="text-xl font-bold">Incoming Call</h2>
-            <p className="text-gray-600">Unknown Caller</p>
+          <div className="bg-white h-2/3 flex items-center flex-col justify-center gap-16 p-6 rounded-lg shadow-lg text-center w-72">
+            <div>
+              <img src={user.img} className="w-20 rounded-full" alt="" />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold">Incoming Call</h2>
+              <p className="text-gray-600">Unknown Caller</p>
             </div>
             <div className="flex justify-center mt-4 gap-8">
               <button

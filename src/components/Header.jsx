@@ -24,12 +24,6 @@ const Header = () => {
           />
         </div>
 
-
-        {/* <div className="md:hidden flex justify-center absolute left-1/2 transform -translate-x-1/2 top-2">
-
-        </div> */}
-
-
         <div className="md:hidden pr-5">
           <button onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? <X size={32} color="white" /> : <Menu size={32} color="white" />}
@@ -46,10 +40,10 @@ const Header = () => {
             <NavLink to={"/"} onClick={handleClick} className="py-2 px-4 md:py-0 cursor-pointer hover:text-gray-300">
               Home
             </NavLink>
-            <li className="py-2 px-4 md:py-0 cursor-pointer hover:text-gray-300">About Us</li>
-            <li className="py-2 px-4 md:py-0 cursor-pointer hover:text-gray-300">Contact Us</li>
-            <li className="py-2 px-4 md:py-0 cursor-pointer hover:text-gray-300">Services</li>
-            <li className="py-2 px-4 md:py-0 cursor-pointer hover:text-gray-300">Blog</li>
+            <NavLink to={"/about"} onClick={handleClick} className="py-2 px-4 md:py-0 cursor-pointer hover:text-gray-300">About Us</NavLink>
+            <NavLink to={"/contact"} onClick={handleClick} className="py-2 px-4 md:py-0 cursor-pointer hover:text-gray-300">Contact Us</NavLink>
+            <NavLink  to={"/services"} onClick={handleClick} className="py-2 px-4 md:py-0 cursor-pointer hover:text-gray-300">Services</NavLink>
+            <NavLink to={"/blog"} onClick={handleClick} className="py-2 px-4 md:py-0 cursor-pointer hover:text-gray-300">Blog</NavLink>
           </ul>
 
           {isUserLogIn ? (

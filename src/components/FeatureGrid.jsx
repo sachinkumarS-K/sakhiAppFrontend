@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
+import { motion } from "framer-motion";
 const features = [
         { title: "Loud Siren", description: "Triggers an alarm sound in emergencies.", emoji: "📢" },
         { title: "Fake Call", description: "Triggers a fake call in emergencies.", emoji: "📞🎭" },
@@ -37,6 +37,15 @@ const FeatureGrid = () => {
         navigate("/guide")
       else if (title == "Fake Call")
         navigate("/fakeCall")
+      else if (title == "Find Help")
+        navigate("/nearbyPlace")
+      else if (title == "Legal Awareness")
+        navigate("/awareness")
+      else if (title == "Self-Defense Tutor")
+        navigate("/selfDefence")
+      else if (title == "Nutrition & Fitness")
+        navigate("/fitness")
+
 
 
   };
@@ -51,7 +60,19 @@ const FeatureGrid = () => {
             className="bg-white shadow-md rounded-lg p-8 text-center hover:shadow-lg transition cursor-pointer hover:bg-gray-100"
             onClick={() => handleFeatureClick(feature.title)} // OnClick event added here
           >
-            <span className="text-3xl">{feature.emoji}</span>
+            <motion.span
+    className="text-3xl inline-block"
+   whileHover={{
+      rotateY: 360,
+      scale: 1.5,
+      y: -15, // Moves the emoji slightly upwards
+      transition: { duration: 1, ease: "easeInOut" },
+    }}
+            >
+              <span className="text-3xl">{feature.emoji}</span>
+
+  </motion.span>
+
             <h3 className="text-lg font-semibold mt-2">{feature.title}</h3>
             <p className="text-gray-600 text-sm mt-1">{feature.description}</p>
           </div>

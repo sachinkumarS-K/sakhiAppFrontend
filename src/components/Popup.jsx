@@ -22,13 +22,14 @@ const PopupMenu = () => {
                     error: (error) => error.response?.data?.message || "Logout failed"
                 }
           );
-          setIsUserLogin(false);
+            setIsUserLogin(false);
             localStorage.removeItem("userInfo")
-          localStorage.removeItem("token",)
-          setUser(null);
-          setFormData({
-            email: "",
-            password : ""
+            localStorage.removeItem("token")
+            localStorage.removeItem("sosNumbers")
+            setUser(null);
+            setFormData({
+                email: "",
+                password : ""
           })
           navigate("/")
         } catch (error) {

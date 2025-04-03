@@ -42,7 +42,7 @@ const AuthPage = () => {
       navigate("/");
     } catch (error) {
       console.error("Error:", error);
-      toast.error("Something went wrong!");
+      // toast.error("Something went wrong!");
     }
   }
 

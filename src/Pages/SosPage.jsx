@@ -1,87 +1,129 @@
-import React, { useState } from 'react'
-import { Send, PlusCircle } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+
 const SosPage = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [phoneList, setPhoneList] = useState([]);
-  const [message, setMessage] = useState("Hello! This is a test message.");
+  const [contacts, setContacts] = useState([]);
+  const [status, setStatus] = useState("");
 
-const sendMessage = async (number) => {
-//   if (!number.trim()) {
-//     alert("Please enter a valid phone number.");
-//     return;
-//   }
+  useEffect(() => {
+    const savedContacts = JSON.parse(localStorage.getItem("sosNumbers")) || [];
+    setContacts(savedContacts);
+  }, []);
 
-  try {
-    const response = await fetch("http://localhost:5000/api/v1/user/send-message", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ phone: number, message }), // ✅ Ensure correct data structure
-    });
-
-    const data = await response.json();
-    if (data.success) {
-      alert("Message sent successfully!");
-    } else {
-      alert("Failed to send message: " + data.error);
+  const formatPhoneNumber = (number) => {
+    let formattedNumber = number.trim();
+    if (!formattedNumber.startsWith("+91")) {
+      formattedNumber = "+91" + formattedNumber.replace(/^0+/, "");
     }
-  } catch (error) {
-    console.error("Error sending message:", error);
-  }
-};
+    return formattedNumber;
+  };
 
+  const savePhoneNumber = () => {
+    if (!phoneNumber.trim()) {
+      setStatus("❌ Please enter a valid phone number!");
+      return;
+    }
 
+    const formattedNumber = formatPhoneNumber(phoneNumber);
+    if (contacts.includes(formattedNumber)) {
+      setStatus("⚠️ This number is already saved!");
+      return;
+    }
+
+    const updatedContacts = [...contacts, formattedNumber];
+    setContacts(updatedContacts);
+    localStorage.setItem("sosNumbers", JSON.stringify(updatedContacts));
+    setPhoneNumber("");
+    setStatus("✅ Emergency contact saved!");
+  };
+
+  const deleteContact = (number) => {
+    const updatedContacts = contacts.filter((contact) => contact !== number);
+    setContacts(updatedContacts);
+    localStorage.setItem("sosNumbers", JSON.stringify(updatedContacts));
+  };
+
+  const sendSOS = async (toNumber) => {
+    if (!toNumber) {
+      setStatus("❌ No emergency number set!");
+      return;
+    }
+
+    if ("geolocation" in navigator) {
+      setStatus("📍 Fetching location...");
+
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const { latitude, longitude } = position.coords;
+          const message = `\n🚨 SOS Alert! 🚨\nI'm in danger! Please help!\n📍 Location: https://www.google.com/maps?q=${latitude},${longitude}`;
+
+          try {
+            await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/send-message`, {
+              to: toNumber,
+              message: message,
+            });
+            setStatus(`🚀 SOS sent to ${toNumber}!`);
+          } catch (error) {
+            setStatus("❌ Failed to send SOS!");
+          }
+        },
+        (error) => {
+          setStatus("❌ Failed to get location! " + error.message);
+        }
+      );
+    } else {
+      setStatus("❌ Geolocation not supported!");
+    }
+  };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
-      <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
-        <h2 className="text-xl font-bold text-gray-700 mb-4">Send Message</h2>
+    <div className="min-h-[80vh] flex items-center">
+    <div className="p-6 max-w-md mx-auto bg-white shadow-lg rounded-lg">
+      <h2 className="text-2xl font-bold mb-4">🚨 SOS Emergency</h2>
 
-        {/* Input Field */}
-        <div className="flex gap-2 mb-4">
-          <input
-            type="text"
-            className="flex-1 p-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Enter phone number"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-          />
-          <button
-            onClick={sendMessage}
-            className="bg-blue-500 text-white p-2 rounded-lg hover:scale-105 transition"
-          >
-            <PlusCircle size={20} />
-          </button>
-        </div>
 
-        {/* Message Input */}
-        <textarea
-          className="w-full p-2 border rounded-lg mb-4 outline-none focus:ring-2 focus:ring-green-500"
-          placeholder="Enter your message"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-        ></textarea>
+      <input
+        type="text"
+        placeholder="Enter emergency phone number (e.g. 9876543210)"
+        value={phoneNumber}
+        onChange={(e) => setPhoneNumber(e.target.value)}
+        className="w-full p-2 border rounded mb-2"
+      />
+      <button onClick={savePhoneNumber} className="w-full bg-blue-500 text-white p-2 rounded mb-4">
+        Save Emergency Contact
+      </button>
 
-        {/* Phone Number List */}
-        <div className="space-y-2">
-          {phoneList.length === 0 ? (
-            <p className="text-gray-500">No numbers added.</p>
-          ) : (
-            phoneList.map((number, index) => (
-              <div key={index} className="flex justify-between items-center bg-gray-200 p-2 rounded-lg">
-                <span className="text-gray-700">{number}</span>
+
+      {contacts.length > 0 && (
+        <div className="mb-4">
+          <h3 className="text-lg font-bold mb-2">📞 Saved Contacts:</h3>
+          {contacts.map((contact, index) => (
+            <div key={index} className="flex justify-between items-center bg-gray-100 p-2 rounded mb-2">
+              <p className="text-lg">{contact}</p>
+              <div>
                 <button
-                  onClick={() => sendMessage(number)}
-                  className="bg-green-500 text-white px-3 py-1 rounded-lg hover:scale-105 transition"
+                  onClick={() => sendSOS(contact)}
+                  className="bg-red-500 text-white px-3 py-1 rounded mr-2"
                 >
-                  <Send size={16} />
+                  Send SOS
+                </button>
+                <button
+                  onClick={() => deleteContact(contact)}
+                  className="bg-gray-400 text-white px-2 py-1 rounded"
+                >
+                  ❌
                 </button>
               </div>
-            ))
-          )}
+            </div>
+          ))}
         </div>
-      </div>
-    </div>
-  );
-}
+      )}
 
-export default SosPage
+      {status && <p className="mt-2 text-sm">{status}</p>}
+      </div>
+      </div>
+  );
+};
+
+export default SosPage;

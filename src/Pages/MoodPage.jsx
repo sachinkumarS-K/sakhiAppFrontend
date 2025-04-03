@@ -18,18 +18,16 @@ const MoodJournal = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [image, setImage] = useState(null);
 
-  // Load data from local storage when component mounts
   useEffect(() => {
-    const savedEntries = JSON.parse(localStorage.getItem("journalEntries")) || [];
+    const savedEntries =
+      JSON.parse(localStorage.getItem("journalEntries")) || [];
     setEntries(savedEntries);
   }, []);
 
-  // Save data to local storage whenever entries change
   useEffect(() => {
     localStorage.setItem("journalEntries", JSON.stringify(entries));
   }, [entries]);
 
-  // Function to handle image upload
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -37,21 +35,23 @@ const MoodJournal = () => {
     }
   };
 
-  // Function to analyze sentiment
   const analyzeSentiment = (text) => {
     const positiveWords = ["happy", "love", "excited", "great", "amazing"];
     const negativeWords = ["sad", "angry", "bad", "upset", "worried"];
 
     const words = text.toLowerCase().split(/\s+/);
-    const positiveMatches = words.filter((word) => positiveWords.includes(word)).length;
-    const negativeMatches = words.filter((word) => negativeWords.includes(word)).length;
+    const positiveMatches = words.filter((word) =>
+      positiveWords.includes(word)
+    ).length;
+    const negativeMatches = words.filter((word) =>
+      negativeWords.includes(word)
+    ).length;
 
     if (positiveMatches > negativeMatches) return "😊 Positive";
     if (negativeMatches > positiveMatches) return "😢 Negative";
     return "😐 Neutral";
   };
 
-  // Function to save entry
   const saveEntry = () => {
     if (journalEntry.trim() !== "" || selectedMood) {
       const newEntry = {
@@ -70,13 +70,11 @@ const MoodJournal = () => {
     }
   };
 
-  // Function to delete an entry
   const deleteEntry = (id) => {
     const updatedEntries = entries.filter((entry) => entry.id !== id);
     setEntries(updatedEntries);
   };
 
-  // Filter entries based on search
   const filteredEntries = entries.filter((entry) =>
     entry.text.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -86,13 +84,14 @@ const MoodJournal = () => {
       <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
         <h2 className="text-2xl font-bold text-center mb-4">Mood & Journal</h2>
 
-        {/* Mood Selection */}
         <div className="flex gap-3 justify-center mb-4 flex-wrap">
           {moods.map((mood) => (
             <button
               key={mood.label}
               className={`text-2xl p-2 rounded-full border ${
-                selectedMood === mood.label ? "bg-blue-300" : "hover:bg-gray-200"
+                selectedMood === mood.label
+                  ? "bg-blue-300"
+                  : "hover:bg-gray-200"
               }`}
               onClick={() => setSelectedMood(mood.label)}
             >
@@ -101,7 +100,6 @@ const MoodJournal = () => {
           ))}
         </div>
 
-        {/* Journal Input */}
         <textarea
           className="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Write about your day..."
@@ -109,16 +107,20 @@ const MoodJournal = () => {
           onChange={(e) => setJournalEntry(e.target.value)}
         ></textarea>
 
-        {/* Image Upload */}
         <label className="flex items-center gap-2 cursor-pointer mt-2 text-blue-600">
           <Upload size={18} />
           <span>Upload Image</span>
           <input type="file" className="hidden" onChange={handleImageUpload} />
         </label>
 
-        {image && <img src={image} alt="Uploaded" className="mt-2 w-full rounded-lg shadow-sm" />}
+        {image && (
+          <img
+            src={image}
+            alt="Uploaded"
+            className="mt-2 w-full rounded-lg shadow-sm"
+          />
+        )}
 
-        {/* Save Button */}
         <button
           onClick={saveEntry}
           className="bg-blue-500 text-white w-full mt-3 p-2 rounded-lg hover:scale-105 transition"
@@ -126,7 +128,6 @@ const MoodJournal = () => {
           Save Entry
         </button>
 
-        {/* Search Box */}
         <div className="flex gap-2 mt-4 items-center border p-2 rounded-lg">
           <Search size={18} className="text-gray-500" />
           <input
@@ -143,14 +144,27 @@ const MoodJournal = () => {
           <div className="mt-6 space-y-3">
             <h3 className="text-lg font-semibold">Previous Entries</h3>
             {filteredEntries.map((entry) => (
-              <div key={entry.id} className="p-3 bg-gray-200 rounded-lg relative">
+              <div
+                key={entry.id}
+                className="p-3 bg-gray-200 rounded-lg relative"
+              >
                 <p className="text-gray-700">
-                  {entry.mood && <span className="text-xl">{moods.find((m) => m.label === entry.mood)?.emoji} </span>}
+                  {entry.mood && (
+                    <span className="text-xl">
+                      {moods.find((m) => m.label === entry.mood)?.emoji}{" "}
+                    </span>
+                  )}
                   {entry.text}
                 </p>
                 <p className="text-sm text-gray-500">{entry.date}</p>
                 <p className="text-sm font-semibold">{entry.sentiment}</p>
-                {entry.image && <img src={entry.image} alt="Uploaded" className="mt-2 rounded-lg" />}
+                {entry.image && (
+                  <img
+                    src={entry.image}
+                    alt="Uploaded"
+                    className="mt-2 rounded-lg"
+                  />
+                )}
 
                 {/* Delete Button */}
                 <button

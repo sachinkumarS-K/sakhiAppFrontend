@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const TrackerPage = () => {
   const [startDate, setStartDate] = useState("");
-  const [cycleLength, setCycleLength] = useState(28); // Default cycle length
+  const [cycleLength, setCycleLength] = useState(28);
   const [symptoms, setSymptoms] = useState("");
   const [predictedCycle, setPredictedCycle] = useState(null);
 
@@ -41,7 +41,7 @@ const TrackerPage = () => {
           Predict your next cycle, symptoms & ovulation.
         </p>
 
-        {/* Cycle Start Date Input */}
+
         <div className="mb-4">
           <label className="block text-gray-700 font-medium mb-2">
             Last Period Start Date:
@@ -54,7 +54,7 @@ const TrackerPage = () => {
           />
         </div>
 
-        {/* Cycle Length Input */}
+
         <div className="mb-4">
           <label className="block text-gray-700 font-medium mb-2">
             Average Cycle Length (days):
@@ -69,7 +69,7 @@ const TrackerPage = () => {
           />
         </div>
 
-        {/* Symptoms Logging */}
+
         <div className="mb-4">
           <label className="block text-gray-700 font-medium mb-2">
             Log Symptoms (Optional):
@@ -82,7 +82,7 @@ const TrackerPage = () => {
           ></textarea>
         </div>
 
-        {/* Predict Button */}
+
         <button
           onClick={calculateNextCycle}
           className="w-full bg-pink-500 text-white py-2 rounded-lg hover:bg-pink-600 transition"
@@ -90,7 +90,7 @@ const TrackerPage = () => {
           Predict Cycle
         </button>
 
-        {/* Result Display */}
+
         {predictedCycle && (
           <div className="mt-4 p-4 bg-pink-50 border border-pink-300 rounded-lg">
             <p className="text-gray-800 font-medium">
@@ -105,7 +105,7 @@ const TrackerPage = () => {
           </div>
         )}
 
-        {/* Menstrual Health Tips */}
+
         <div className="mt-6 p-4 bg-white shadow-md rounded-lg border">
           <h3 className="text-lg font-bold text-gray-800">💡 Health Tips</h3>
           <ul className="list-disc text-gray-600 text-sm mt-2 pl-4">
