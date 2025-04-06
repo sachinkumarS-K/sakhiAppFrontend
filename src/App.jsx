@@ -6,12 +6,14 @@ import AuthProvider from './context/AuthProvider'
 import Chatbot from './components/ChatBot'
 
 
+
 function App() {
 
 
   return (
     <div>
       <AuthProvider>
+
           <Header/>
         <Outlet />
           <Chatbot />
