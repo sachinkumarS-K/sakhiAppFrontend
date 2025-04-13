@@ -16,11 +16,14 @@ const ContactPage = () => {
     }
     try {
       await toast.promise(
-        axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/sendEmail`, { email, name }),
+        axios.post(
+          `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/sendEmail`,
+          { email, name }
+        ),
         {
           loading: "Submitting the response...",
           success: "Response submitted.",
-          error: "Failed. Try again!"
+          error: "Failed. Try again!",
         }
       );
       setEmail("");
@@ -64,7 +67,9 @@ const ContactPage = () => {
         transition={{ duration: 1 }}
         onSubmit={submitHandler}
       >
-        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Get in Touch 📬</h2>
+        <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+          Get in Touch 📬
+        </h2>
 
         <div className="mb-4">
           <label className="block text-gray-700 font-semibold">Your Name</label>
@@ -78,7 +83,9 @@ const ContactPage = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 font-semibold">Your Email</label>
+          <label className="block text-gray-700 font-semibold">
+            Your Email
+          </label>
           <input
             type="email"
             placeholder="Enter your email"

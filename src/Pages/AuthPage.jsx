@@ -50,7 +50,9 @@ const AuthPage = () => {
     <div className="min-h-[80vh] flex items-center justify-center bg-gradient-to-r from-[#ff758c] to-[#ff7eb3] p-4">
       <div className="bg-white shadow-xl rounded-lg p-10 w-full max-w-md transition-transform duration-300 hover:scale-105">
         <h2 className="text-3xl font-bold text-center text-[#ff4081] mb-6">
-          {isLogin ? "Welcome Back" : "Create an Account"}
+          {
+            isLogin ? "Welcome Back" : "Create an Account"
+          }
         </h2>
 
         <form className="space-y-6">

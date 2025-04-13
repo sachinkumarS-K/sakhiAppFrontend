@@ -72,7 +72,7 @@ const SosPage = () => {
           } catch (error) {
             setStatus("❌ Failed to send SOS!");
           } finally {
-               setIsLoading(false);
+            setIsLoading(false);
           }
         },
         (error) => {
@@ -82,7 +82,6 @@ const SosPage = () => {
     } else {
       setStatus("❌ Geolocation not supported!");
     }
-
   };
 
   return (
@@ -113,22 +112,24 @@ const SosPage = () => {
                 className="flex justify-between items-center bg-gray-100 p-2 rounded mb-2"
               >
                 <p className="text-lg">{contact}</p>
-                {
-                  isLoading ? (<Loader/>) : <div>
-                  <button
-                    onClick={() => sendSOS(contact)}
-                    className="bg-red-500 text-white px-3 py-1 rounded mr-2"
-                  >
-                    Send SOS
-                  </button>
-                  <button
-                    onClick={() => deleteContact(contact)}
-                    className="bg-gray-400 text-white px-2 py-1 rounded"
-                  >
-                    ❌
-                  </button>
-                </div>
-                }
+                {isLoading ? (
+                  <Loader />
+                ) : (
+                  <div>
+                    <button
+                      onClick={() => sendSOS(contact)}
+                      className="bg-red-500 text-white px-3 py-1 rounded mr-2"
+                    >
+                      Send SOS
+                    </button>
+                    <button
+                      onClick={() => deleteContact(contact)}
+                      className="bg-gray-400 text-white px-2 py-1 rounded"
+                    >
+                      ❌
+                    </button>
+                  </div>
+                )}
               </div>
             ))}
           </div>

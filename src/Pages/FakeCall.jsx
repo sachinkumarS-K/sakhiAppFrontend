@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { PhoneCall, PhoneOff } from "lucide-react";
-import ringtone from "../assets/policeVoice.mp3";
-import fakeCall from "../assets/fakeCall.mp3";
+import fakeCall from "../assets/policeVoice.mp3";
+// import fakeCall from "../assets/fakeCall.mp3";
+import ringtone from "../assets/ringtone.mp3";
 import { AuthContext } from "../context/AuthProvider";
 const FakeCall = () => {
   const [incomingCall, setIncomingCall] = useState(false);
@@ -28,9 +29,21 @@ const FakeCall = () => {
     ringtoneRef.current.pause();
     voiceRef.current.pause();
   };
-  const {
-    user,
-  } = useContext(AuthContext);
+
+
+
+useEffect(() => {
+
+
+  return () => {
+
+    setAnswered(false);
+    ringtoneRef.current.pause();
+    voiceRef.current.pause();
+  };
+}, []);
+
+  const { user } = useContext(AuthContext);
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
       <button

@@ -40,13 +40,13 @@ const appRouter = createBrowserRouter(
       <Route path="auth" element={<AuthPage />} />
       <Route path="forgotPassword" element={<ForgotPasswordPage />} />
       <Route path="resetPassword" element={<ResetPage />} />
-
+       <Route path="siren" element={<SirenPage />} />
       <Route element={<PrivateRoute />}>
         <Route path="me" element={<ProfilePage />} />
         <Route path="sos" element={<SosPage />} />
-        <Route path="siren" element={<SirenPage />} />
+
         <Route path="tracker" element={<TrackerPage />} />
-        <Route path="mood" element={<MoodPage />} />
+        {/* <Route path="mood" element={<MoodPage />} /> */}
         <Route path="guide" element={<PregnancyGuidePage />} />
         <Route path="fakeCall" element={<FakeCall />} />
         <Route path="/nearbyPlace" element={<NearbyPlaces />} />
@@ -59,7 +59,6 @@ const appRouter = createBrowserRouter(
     </Route>
   )
 );
-
 createRoot(document.getElementById("root")).render(
   <RouterProvider router={appRouter} />
 );

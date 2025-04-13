@@ -11,7 +11,7 @@ export default defineConfig({
     historyApiFallback: true,
     allowedHosts: [
       "localhost",
-      "3923-2401-4900-1c5a-43a6-5474-bbf2-168d-518e.ngrok-free.app", // Add your ngrok URL here
+      "3923-2401-4900-1c5a-43a6-5474-bbf2-168d-518e.ngrok-free.app",
     ],
   },
 });

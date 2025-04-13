@@ -7,14 +7,18 @@ import { AuthContext } from "../context/AuthProvider";
 import Popup from "./Popup";
 
 const Header = () => {
-  const { isOpen, setIsOpen, setDarkMode, darkMode, handleClick, setIsLogin, isUserLogIn, setIsUserLogin, user } =
-    useContext(AuthContext);
+  const {
+    isOpen,
+    setIsOpen,
+    handleClick,
+    setIsLogin,
+    isUserLogIn
+  } = useContext(AuthContext);
   const navigate = useNavigate();
 
   return (
     <div className="w-full bg-[#ff4081] pb-5 pt-2.5">
       <nav className="w-full flex justify-between p-2.5 items-center">
-
         <div className="h-10 pl-5">
           <img
             onClick={() => navigate("/")}
@@ -26,10 +30,13 @@ const Header = () => {
 
         <div className="md:hidden pr-5">
           <button onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <X size={32} color="white" /> : <Menu size={32} color="white" />}
+            {isOpen ? (
+              <X size={32} color="white" />
+            ) : (
+              <Menu size={32} color="white" />
+            )}
           </button>
         </div>
-
 
         <div
           className={`md:flex md:items-center gap-5 md:static absolute z-50 top-16 left-0 w-full bg-[#ff4081] md:w-auto transition-all duration-300 ease-in-out ${
@@ -37,19 +44,47 @@ const Header = () => {
           }`}
         >
           <ul className="flex flex-col md:flex-row md:gap-5 text-white font-bold text-lg items-center p-5 md:p-0">
-            <NavLink to={"/"} onClick={handleClick} className="py-2 px-4 md:py-0 cursor-pointer hover:text-gray-300">
+            <NavLink
+              to={"/"}
+              onClick={handleClick}
+              className="py-2 px-4 md:py-0 cursor-pointer hover:text-gray-300"
+            >
               Home
             </NavLink>
-            <NavLink to={"/about"} onClick={handleClick} className="py-2 px-4 md:py-0 cursor-pointer hover:text-gray-300">About Us</NavLink>
-            <NavLink to={"/contact"} onClick={handleClick} className="py-2 px-4 md:py-0 cursor-pointer hover:text-gray-300">Contact Us</NavLink>
-            <NavLink  to={"/services"} onClick={handleClick} className="py-2 px-4 md:py-0 cursor-pointer hover:text-gray-300">Services</NavLink>
-            <NavLink to={"/blog"} onClick={handleClick} className="py-2 px-4 md:py-0 cursor-pointer hover:text-gray-300">Blog</NavLink>
+            <NavLink
+              to={"/about"}
+              onClick={handleClick}
+              className="py-2 px-4 md:py-0 cursor-pointer hover:text-gray-300"
+            >
+              About Us
+            </NavLink>
+            <NavLink
+              to={"/contact"}
+              onClick={handleClick}
+              className="py-2 px-4 md:py-0 cursor-pointer hover:text-gray-300"
+            >
+              Contact Us
+            </NavLink>
+            <NavLink
+              to={"/services"}
+              onClick={handleClick}
+              className="py-2 px-4 md:py-0 cursor-pointer hover:text-gray-300"
+            >
+              Services
+            </NavLink>
+            <NavLink
+              to={"/blog"}
+              onClick={handleClick}
+              className="py-2 px-4 md:py-0 cursor-pointer hover:text-gray-300"
+            >
+              Blog
+            </NavLink>
           </ul>
 
           {isUserLogIn ? (
             <div className=" ">
-               <Popup />
-           </div>
+              <Popup />
+            </div>
           ) : (
             <div className="flex flex-col md:flex-row gap-2 p-5 md:p-0">
               <NavLink
