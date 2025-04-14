@@ -10,3 +10,100 @@
 .custom-scrollbar::-webkit-scrollbar-track {
   background: transparent;
 }
+
+
+/* css for calender */
+
+
+.react-calendar {
+  min-width: 100%;
+  background: #fff;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.125em;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.react-calendar__navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #e83095; /* pink-300 */
+  color: white;
+  font-weight: bold;
+}
+
+.react-calendar__navigation button {
+  color: white;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.react-calendar__month-view__weekdays {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #9ca3af; /* gray-400 */
+  background-color: #fdf2f8; /* pink-50 */
+  padding: 0.5rem 0;
+}
+
+.react-calendar__tile {
+  padding: 0.75rem 0;
+  text-align: center;
+  background: none;
+  border: none;
+  transition: background 0.2s ease;
+  font-weight: 500;
+  border-radius: 0.75rem;
+  position: relative;
+  z-index: 0;
+}
+
+.react-calendar__tile:enabled:hover {
+  background-color: #fce7f3; /* pink-100 */
+  cursor: pointer;
+}
+
+/* Highlight dots for the legend */
+.dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-right: 6px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.fertile-dot {
+  background-color: #a3e635; /* lime */
+}
+.ovulation-dot {
+  background-color: #38bdf8; /* sky */
+}
+.period-dot {
+  background-color: #f43f5e; /* rose */
+}
+
+/* Highlighted calendar cells */
+.fertile-day {
+  background: #ecfccb !important;
+  border-radius: 50%;
+  font-weight: bold;
+}
+.ovulation-day {
+  background: #bae6fd !important;
+  border-radius: 50%;
+  font-weight: bold;
+}
+.period-day {
+  background: #fecdd3 !important;
+  border-radius: 50%;
+  font-weight: bold;
+}
